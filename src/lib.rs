@@ -1,9 +1,10 @@
 pub mod app;
 pub mod config;
 pub mod controllers;
+pub mod errors;
 pub mod middlewares;
 pub mod models;
 pub mod routes;
 pub mod services;
-pub mod validators;
 pub mod utils;
+pub mod validators;

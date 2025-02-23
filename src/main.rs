@@ -1,6 +1,6 @@
-use web_server::app;
+use web_server::{app, errors::AppError};
 
 #[actix_web::main]
-async fn main() -> std::io::Result<()> {
-  app::run_server().await
+async fn main() -> Result<(), AppError> {
+    app::run_server().await
 }
