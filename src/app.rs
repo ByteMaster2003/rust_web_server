@@ -2,7 +2,7 @@ use crate::{
   config::APP_CONFIG,
   errors::{not_found_handler, AppError},
   routes,
-  utils::{cors::configure_cors, db, logger},
+  utils::{cors::configure_cors, db, logger}
 };
 use actix_web::{
   http::StatusCode,
