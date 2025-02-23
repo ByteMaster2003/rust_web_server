@@ -2,9 +2,13 @@ use crate::{
   config::APP_CONFIG,
   errors::{not_found_handler, AppError},
   routes,
-  utils::{db, logger},
+  utils::{cors::configure_cors, db, logger},
 };
-use actix_web::{http::StatusCode, middleware::ErrorHandlers, web, App, HttpServer};
+use actix_web::{
+  http::StatusCode,
+  middleware::{Compress, DefaultHeaders, ErrorHandlers},
+  web, App, HttpServer,
+};
 use log::info;
 
 pub fn config(cfg: &mut web::ServiceConfig) {
@@ -28,6 +32,15 @@ pub async fn run_server() -> Result<(), AppError> {
   HttpServer::new(move || {
     App::new()
       .wrap(ErrorHandlers::new().handler(StatusCode::NOT_FOUND, not_found_handler))
+      .wrap(
+        DefaultHeaders::new()
+          .add(("X-Frame-Options", "DENY"))
+          .add(("X-Content-Type-Options", "nosniff"))
+          .add(("X-XSS-Protection", "1; mode=block"))
+          .add(("Referrer-Policy", "strict-origin-when-cross-origin")),
+      )
+      .wrap(configure_cors())
+      .wrap(Compress::default())
       .wrap(logger::get_logger_middleware())
       .app_data(db_data.clone())
       .configure(config)
