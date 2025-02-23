@@ -1,3 +1,3 @@
-pub mod env_config;
+pub mod env;
 
-pub use env_config::*;
+pub use env::*;

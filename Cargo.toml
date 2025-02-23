@@ -13,3 +13,6 @@ thiserror = "2.0.11"
 validator = { version = "0.20.0", features = ["derive"] }
 mongodb = "3.2.1"
 futures = "0.3.31"
+log = "0.4.26"
+env_logger = "0.11.6"
+chrono = "0.4.39"
